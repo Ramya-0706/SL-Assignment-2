@@ -1,0 +1,38 @@
+class Vehicle
+  attr_reader :fuel_level
+
+  def initialize(fuel_level)
+    @fuel_level = fuel_level
+  end
+
+  # Reusable method for all vehicles
+  def check_fuel_level
+    "Fuel is at #{fuel_level}%."
+  end
+
+  # Reusable method for all vehicles
+  def calculate_mileage # Placeholder logic
+    puts "Calculating general mileage..."
+  end
+end
+
+class Car < Vehicle
+  def perform_maintenance
+    "Car maintenance: Oil change and tire rotation performed."
+  end
+end
+
+class Truck < Vehicle
+  # A unique attribute for trucks
+  attr_reader :payload_capacity 
+
+  def initialize(fuel_level, capacity)
+    # Call the superclass's initializer to set the common attribute
+    super(fuel_level) 
+    @payload_capacity = capacity
+  end
+
+  def check_cargo_status
+    "Truck is carrying #{payload_capacity} tons."
+  end
+end
