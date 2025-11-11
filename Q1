@@ -1,0 +1,73 @@
+## 1. Web-Based Course Registration System Design
+
+### 🎯 System Features & Architecture
+
+| Component | Description | Technologies |
+| :--- | :--- | :--- |
+| **Frontend (Client-Side)** | User Interface for students (Registration, Viewing, Management). | **HTML5, CSS3 (Bootstrap), JavaScript (React/Vue)** |
+| **Backend (Server-Side)** | Handles business logic, security, and data interaction (e.g., prerequisite checks, availability updates). | **Node.js (Express), Python (Django), or Java (Spring)** |
+| **Database** | Stores course, student, and registration data. | **PostgreSQL** or **MongoDB** |
+
+### 📝 Key Functionality Implementation
+
+* **Prerequisite Checking:** A backend service validates if the student's record meets required prerequisites before allowing registration.
+* **Automatic Availability Update:** When a successful registration occurs, the system **atomically** decrements the `$AvailableSeats` counter. If it reaches **0**, the course is automatically flagged as "Full."
+* **Client-Side Validation (JavaScript):** JavaScript ensures input fields (like Student ID or Course Code) are correctly formatted and not empty *before* submitting data to the server, improving responsiveness.
+
+---
+
+## 2. JavaScript Validation for a Four-Digit Number
+
+This HTML file includes the required JavaScript logic to validate the four-digit number based on the given rules.
+
+### `number_validator.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Number Validator</title>
+</head>
+<body>
+    <h1>Four-Digit Number Validator</h1>
+    <input type="text" id="numberInput" maxlength="4" placeholder="Enter a 4-digit number">
+    <button onclick="validateNumber()">Validate</button>
+    <p id="message"></p>
+
+    <script>
+        function validateNumber() {
+            const input = document.getElementById('numberInput').value;
+            const messageElement = document.getElementById('message');
+
+            // 1. Basic Check (Length and NaN)
+            if (input.length !== 4 || isNaN(input)) {
+                messageElement.textContent = "Error: Please enter a valid four-digit number.";
+                messageElement.style.color = "red";
+                return;
+            }
+
+            // 2. No zero as the first digit
+            if (input.charAt(0) === '0') {
+                messageElement.textContent = "Error: The first digit cannot be zero.";
+                messageElement.style.color = "red";
+                return;
+            }
+
+            // 3. Entered number must be in ascending order of digits
+            const d1 = parseInt(input.charAt(0));
+            const d2 = parseInt(input.charAt(1));
+            const d3 = parseInt(input.charAt(2));
+            const d4 = parseInt(input.charAt(3));
+
+            if (d1 < d2 && d2 < d3 && d3 < d4) {
+                messageElement.textContent = `Success: The number ${input} is valid!`;
+                messageElement.style.color = "green";
+            } else {
+                messageElement.textContent = "Error: Digits must be in strict ascending order (e.g., 1234, not 1123 or 4321).";
+                messageElement.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
