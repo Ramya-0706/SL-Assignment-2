@@ -1,0 +1,26 @@
+# sphere_volume.tcl
+# Program to prompt user for the radius of a sphere and calculate its volume
+
+# Procedure to calculate the volume of a sphere
+proc sphereVolume {radius} {
+    # Use expr for math calculation
+    set volume [expr {(4.0/3.0) * acos(-1) * pow($radius, 3)}]
+    return $volume
+}
+
+# Prompt the user for input
+puts -nonewline "Enter the radius of the sphere: "
+flush stdout
+gets stdin radius
+
+# Validate input
+if {[catch {expr {double($radius)}}]} {
+    puts "Invalid input. Please enter a numeric value for the radius."
+    exit
+}
+
+# Call the function to calculate volume
+set volume [sphereVolume $radius]
+
+# Display the result
+puts "The volume of the sphere with radius $radius is $volume"
