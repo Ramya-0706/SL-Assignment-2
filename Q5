@@ -1,0 +1,44 @@
+# listbox_copy_remove.tcl
+# Tcl/Tk program that copies an item from listbox1 to listbox2 on click,
+# and removes an item from listbox2 on click.
+
+# Create the main window
+wm title . "Listbox Copy and Remove Example"
+wm geometry . 400x250
+
+# Create two listboxes
+listbox .lb1 -selectmode single -height 8 -width 20
+listbox .lb2 -selectmode single -height 8 -width 20
+
+# Add some items to the first listbox
+foreach item {Apple Banana Cherry Date Grapes Mango Orange Pineapple} {
+    .lb1 insert end $item
+}
+
+# Define procedure to copy selected item from listbox1 to listbox2
+proc copyToSecond {} {
+    # Get selected index from first listbox
+    set selection [.lb1 curselection]
+    if {$selection ne ""} {
+        set item [.lb1 get $selection]
+        .lb2 insert end $item
+    }
+}
+
+# Define procedure to remove selected item from listbox2
+proc removeFromSecond {} {
+    set selection [.lb2 curselection]
+    if {$selection ne ""} {
+        .lb2 delete $selection
+    }
+}
+
+# Bind click event to both listboxes
+bind .lb1 <<ListboxSelect>> {copyToSecond}
+bind .lb2 <<ListboxSelect>> {removeFromSecond}
+
+# Layout the listboxes using grid
+grid .lb1 -row 0 -column 0 -padx 20 -pady 20
+grid .lb2 -row 0 -column 1 -padx 20 -pady 20
+
+# Run the application
